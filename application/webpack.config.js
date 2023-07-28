@@ -38,6 +38,10 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js', '.vue'],
     },
 
+    optimization: {
+        minimize: false,
+    },
+
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
@@ -47,13 +51,12 @@ module.exports = {
         new ModuleFederationPlugin({
             name: 'host',
             remotes: {
-                components: 'components@http://localhost:5500/vue-2-components/dist/remote.js'
+                vue2App: 'vue2App@http://localhost:5500/vue-2-components/dist/remote.js'
             }
         })
     ],
 
     output: {
-        filename: 'bundle.[hash].js',
-        path: path.resolve(__dirname, 'dist'),
+        publicPath: 'auto',
     },
 }

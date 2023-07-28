@@ -2,10 +2,10 @@
   "name": "vue-2-components",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "dev": "webpack --watch --progress --mode development"
   },
   "author": "",
   "license": "ISC",

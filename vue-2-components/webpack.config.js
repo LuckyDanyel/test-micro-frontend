@@ -4,9 +4,7 @@ const { VueLoaderPlugin } = require('vue-loader')
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
-    entry: {
-        remote: './components/index.ts'
-    },
+    entry: './UI/index.js',
     module: {
         rules: [
             {
@@ -34,13 +32,28 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.vue'],
     },
-
+    experiments: {
+        topLevelAwait: true,
+    },
+    optimization: {
+        minimize: false,
+      },
     plugins: [
         new CleanWebpackPlugin(),
         new VueLoaderPlugin(),
         new ModuleFederationPlugin({
-            name: 'remote',
-            exposes: ['./components/index.ts'],
+            name: 'vue2App',
+            filename: 'remote.js',
+            library: { type: "var", name: "vue2App" },
+            exposes: {
+                './vue2': './node_modules/vue/dist/vue',
+                './UI': './UI/index.js',
+            }
         })
     ],
+    output: {
+        filename: '[name].js',
+        chunkFilename: '[name].[contenthash].js' ,
+        publicPath: 'auto',
+    },
 }

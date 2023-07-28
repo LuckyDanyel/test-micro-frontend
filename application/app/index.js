@@ -1,5 +1,1 @@
-import { createApp } from 'vue';
-import Root from './components/Root.vue';
-
-const app = createApp(Root);
-app.mount('#app');
+import('./bootstrap.js');
