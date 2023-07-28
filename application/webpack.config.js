@@ -52,7 +52,8 @@ module.exports = {
             name: 'host',
             remotes: {
                 vue2App: 'vue2App@http://localhost:5500/vue-2-components/dist/remote.js'
-            }
+            },
+            shared: require("./package.json").dependencies,
         })
     ],
 
