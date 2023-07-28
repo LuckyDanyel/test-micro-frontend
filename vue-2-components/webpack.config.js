@@ -1,6 +1,7 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const { VueLoaderPlugin } = require('vue-loader')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { VueLoaderPlugin } = require('vue-loader');
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
@@ -27,33 +28,33 @@ module.exports = {
                 },
                 exclude: /node_modules/,
             },
+            {
+                test: /\.html$/i,
+                loader: "html-loader",
+            },
         ]
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.vue'],
     },
-    experiments: {
-        topLevelAwait: true,
-    },
-    optimization: {
-        minimize: false,
-      },
+
     plugins: [
         new CleanWebpackPlugin(),
         new VueLoaderPlugin(),
-        new ModuleFederationPlugin({
-            name: 'vue2App',
-            filename: 'remote.js',
+        new ModuleFederationPlugin({ 
+            name: 'vue2App', 
+            filename: 'remote.js', 
             library: { type: "var", name: "vue2App" },
-            exposes: {
-                './vue2': './node_modules/vue/dist/vue',
-                './UI': './UI/index.js',
-            }
+            exposes: { 
+                './Counter': './UI/Counter',
+                './HelloWorld': './UI/HelloWorld', 
+            },
         })
     ],
+
     output: {
-        filename: '[name].js',
-        chunkFilename: '[name].[contenthash].js' ,
         publicPath: 'auto',
+        filename: '[name].js',
+        chunkFilename: '[name].[contenthash].js',
     },
 }

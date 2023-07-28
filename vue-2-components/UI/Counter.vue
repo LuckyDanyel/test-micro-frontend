@@ -1,21 +1,18 @@
-<script lang="ts">
-    import { defineComponent, ref } from '@vue/composition-api'; 
-
-    export default defineComponent({
-        setup() {
-            const counter = ref(0);
-            return {
-                counter,
-            }
-        }
-    })
+<script lang="ts" setup>
+    import { ref, toRefs } from 'vue';
+    const props = defineProps(['count']);
+    const emit = defineEmits();
+    const { count } = toRefs(props);
+    const handler = () => {
+        emit('count', 1);
+    }
 
 </script>
 
 <template>
     <div>
-        <div class="button-click" @click="() => counter++"> Нажми на меня </div>
-        {{ counter }}
+        <div class="button-click" @click="handler"> Нажми на меня </div>
+        <div> {{ count }} </div>
     </div>
 </template>
 
